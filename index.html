@@ -13,7 +13,10 @@
             background: linear-gradient(135deg, #a8edea 0%, #fed6e3 50%, #ffecd2 100%);
             color: #333; position: relative;
         }
-        .sparkles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .sparkles { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; 
+            pointer-events: none;
+        }
         .sparkle { 
             position: absolute; background: linear-gradient(45deg, #ff6b6b, #ffd93d); 
             border-radius: 50%; animation: sparkleFloat 6s infinite linear; 
@@ -31,7 +34,9 @@
             opacity: 0; transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out; 
             z-index: 5; text-align: center; padding: 2em;
         }
-        .section.active { opacity: 1; transform: scale(1); }
+        .section.active { 
+            opacity: 1; transform: scale(1); 
+        }
         h1 { 
             font-size: 3.5em; font-family: 'Dancing Script', cursive; margin-bottom: 0.5em; 
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4); 
@@ -39,7 +44,7 @@
             animation: titleFloat 3s ease-in-out infinite;
         }
         @keyframes titleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        h2 { font-size: 2em; margin: 0.5em 0 1.5em; opacity: 0.9; font-family: 'Poppins', sans-serif; }
+        h2 { font-size: 2em; margin: 0.5em 0 2.5em; opacity: 0.9; font-family: 'Poppins', sans-serif; }
         p { font-size: 1.3em; max-width: 700px; line-height: 1.7; margin-bottom: 2em; }
         .compliments {
             display: flex; flex-wrap: wrap; gap: 1.2em; justify-content: center; max-width: 900px; margin: 2em 0;
@@ -51,12 +56,6 @@
             font-size: 1.3em; font-weight: 600; min-width: 220px; text-align: center;
             position: relative; overflow: hidden;
         }
-        .compliment-card::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; 
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); 
-            transition: left 0.5s;
-        }
-        .compliment-card:hover::before { left: 100%; }
         .compliment-card:hover { 
             transform: translateY(-15px) scale(1.05); 
             box-shadow: 0 20px 50px rgba(255,107,157,0.4);
@@ -65,7 +64,7 @@
             padding: 1em 2em; margin: 0.6em; 
             border: 2px solid transparent; border-radius: 25px; 
             background: linear-gradient(45deg, #ffeef2, #fff5f8); 
-            color: #ff69b4; font-size: 1.15em; cursor: pointer; 
+            color: #ff69b4; font-size: 1.15em; cursor: pointer !important; 
             transition: all 0.4s ease; font-weight: 400; font-family: 'Poppins', sans-serif;
             position: relative; overflow: hidden; min-width: 260px; 
             box-shadow: 0 4px 15px rgba(255,105,180,0.3);
@@ -120,7 +119,7 @@
             <div class="compliment-card">Your energy ✨</div>
             <div class="compliment-card">The way you light up ☀️</div>
         </div>
-        <button class="cute-btn" onclick="nextSection(2)" style="margin-top: 2.5em; font-size: 1.2em;">
+        <button class="cute-btn keep-going-btn" style="margin-top: 2.5em; font-size: 1.2em;">
             Keep going → 💫
         </button>
     </div>
@@ -133,7 +132,7 @@
         <div style="margin: 2em 0;">
             <span style="font-size: 4em; animation: pulse 2s infinite;">☕❤️🎶</span>
         </div>
-        <button class="cute-btn" onclick="nextSection(3)" style="font-size: 1.3em; padding: 1.1em 2.5em;">
+        <button class="cute-btn show-question-btn" style="font-size: 1.3em; padding: 1.1em 2.5em;">
             Show me the question → ✨
         </button>
     </div>
@@ -141,15 +140,15 @@
     <!-- Section 3: The Ask - THREE SUPER CUTE SUBTLE YES OPTIONS -->
     <div class="section" id="sec3">
         <h1>So... ☕💕</h1>
-        <h2 style="margin-bottom: 2.5em;">Wanna grab coffee sometime? Just you + me.</h2>
+        <h2>Wanna grab coffee sometime? Just you + me.</h2>
         <div style="display: flex; flex-direction: column; gap: 1em; justify-content: center; margin-bottom: 2em; max-width: 450px;">
-            <button class="cute-btn" style="padding: 1.1em 2.5em;" onclick="finalChoice()">
+            <button class="cute-btn yes-btn" style="padding: 1.1em 2.5em;">
                 🥺 yes please!
             </button>
-            <button class="cute-btn" style="padding: 1.1em 2.5em;" onclick="finalChoice()">
+            <button class="cute-btn yes-btn" style="padding: 1.1em 2.5em;">
                 💕 i'd love to
             </button>
-            <button class="cute-btn" style="padding: 1.1em 2.5em;" onclick="finalChoice()">
+            <button class="cute-btn yes-btn" style="padding: 1.1em 2.5em;">
                 ✨ yay coffee!
             </button>
         </div>
@@ -161,12 +160,13 @@
         <div id="final-response" class="typing">YASSS! 🎉 Thursday or Friday work? Can't wait to chat more ☕💖✨</div>
         <div id="flower-burst" class="flower-burst">🌸💐🌺✨</div>
         <p style="margin: 2em 0 1em; opacity: 0.85; font-style: italic;">Thanks for letting me share this 💫</p>
-        <button class="cute-btn" onclick="restart()" style="font-size: 1.1em; padding: 0.9em 2em;">← Try again? 🥰</button>
+        <button class="cute-btn restart-btn" style="font-size: 1.1em; padding: 0.9em 2em;">← Try again? 🥰</button>
     </div>
 
     <script>
         let currentSec = 1;
 
+        // Sparkles
         function createSparkle() {
             const sparkle = document.createElement('div');
             sparkle.className = 'sparkle';
@@ -178,37 +178,55 @@
         }
         setInterval(createSparkle, 400);
 
-        function nextSection(sec) {
-            console.log('Going from section', currentSec, 'to', sec); // Debug
+        // Section switching function
+        function switchSection(targetSec) {
             document.getElementById(`sec${currentSec}`).classList.remove('active');
-            currentSec = sec;
+            currentSec = targetSec;
             document.getElementById(`sec${currentSec}`).classList.add('active');
         }
 
-        function finalChoice() {
-            nextSection(4);
-            const msgEl = document.getElementById('final-response');
-            msgEl.className = 'success-glow typing';
-            
-            confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
-            setTimeout(() => {
-                confetti({ particleCount: 150, angle: 60, spread: 55, origin: { x: 0 } });
-                confetti({ particleCount: 150, angle: 120, spread: 55, origin: { x: 1 } });
-                document.getElementById('flower-burst').style.display = 'block';
-            }, 500);
-            
-            setTimeout(() => {
-                document.querySelectorAll('#sec3 button').forEach(btn => {
-                    btn.style.opacity = '0.5';
-                    btn.style.cursor = 'default';
-                    btn.onclick = null;
-                });
-            }, 3000);
-        }
+        // Button event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Keep going button
+            document.querySelector('.keep-going-btn').addEventListener('click', function() {
+                switchSection(2);
+            });
 
-        function restart() {
-            location.reload();
-        }
+            // Show question button
+            document.querySelector('.show-question-btn').addEventListener('click', function() {
+                switchSection(3);
+            });
+
+            // Yes buttons
+            document.querySelectorAll('.yes-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    switchSection(4);
+                    const msgEl = document.getElementById('final-response');
+                    msgEl.className = 'success-glow typing';
+                    
+                    // Fireworks
+                    confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
+                    setTimeout(() => {
+                        confetti({ particleCount: 150, angle: 60, spread: 55, origin: { x: 0 } });
+                        confetti({ particleCount: 150, angle: 120, spread: 55, origin: { x: 1 } });
+                        document.getElementById('flower-burst').style.display = 'block';
+                    }, 500);
+                    
+                    // Disable yes buttons
+                    setTimeout(() => {
+                        document.querySelectorAll('.yes-btn').forEach(btn => {
+                            btn.style.opacity = '0.5';
+                            btn.style.cursor = 'default';
+                        });
+                    }, 3000);
+                });
+            });
+
+            // Restart button
+            document.querySelector('.restart-btn').addEventListener('click', function() {
+                location.reload();
+            });
+        });
     </script>
 </body>
 </html>

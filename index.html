@@ -14,7 +14,11 @@
             color: #333; position: relative; cursor: none;
         }
         .sparkles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-        .sparkle { position: absolute; background: linear-gradient(45deg, #ff6b6b, #ffd93d); border-radius: 50%; animation: sparkleFloat 6s infinite; box-shadow: 0 0 15px #ffcccb; }
+        .sparkle { 
+            position: absolute; background: linear-gradient(45deg, #ff6b6b, #ffd93d); 
+            border-radius: 50%; animation: sparkleFloat 6s infinite linear; 
+            box-shadow: 0 0 15px #ffcccb; 
+        }
         @keyframes sparkleFloat {
             0% { transform: translateY(100vh) scale(0) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
@@ -30,87 +34,105 @@
         .section { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            opacity: 0; transition: opacity 1.2s, transform 1.2s; z-index: 5; text-align: center; 
-            padding: 2em;
+            opacity: 0; transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out; 
+            z-index: 5; text-align: center; padding: 2em;
         }
         .section.active { opacity: 1; transform: scale(1); }
         h1 { 
             font-size: 3.5em; font-family: 'Dancing Script', cursive; margin-bottom: 0.5em; 
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4); -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; animation: titleFloat 3s ease-in-out infinite;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            animation: titleFloat 3s ease-in-out infinite;
         }
         @keyframes titleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        h2 { font-size: 2em; margin: 0.5em 0 1.5em; opacity: 0.9; font-family: 'Poppins', sans-serif; }
         p { font-size: 1.3em; max-width: 700px; line-height: 1.7; margin-bottom: 2em; }
-        .reveal-card { 
-            background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); padding: 1.5em 2em; 
-            border-radius: 25px; margin: 1em; border: 2px solid transparent; 
-            background-clip: padding-box; transition: all 0.5s; cursor: pointer; 
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1); position: relative; overflow: hidden;
+        .compliments {
+            display: flex; flex-wrap: wrap; gap: 1.2em; justify-content: center; max-width: 900px; margin: 2em 0;
         }
-        .reveal-card::before {
+        .compliment-card { 
+            background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); 
+            padding: 2em 1.5em; border-radius: 25px; border: 3px solid #ff6b9d; 
+            transition: all 0.5s ease; cursor: default; box-shadow: 0 8px 32px rgba(0,0,0,0.1); 
+            font-size: 1.3em; font-weight: 600; min-width: 220px; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .compliment-card::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; 
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); 
             transition: left 0.5s;
         }
-        .reveal-card:hover::before { left: 100%; }
-        .reveal-card:hover { 
-            transform: translateY(-15px) scale(1.05); border-color: #ff6b9d; 
+        .compliment-card:hover::before { left: 100%; }
+        .compliment-card:hover { 
+            transform: translateY(-15px) scale(1.05); 
             box-shadow: 0 20px 50px rgba(255,107,157,0.4);
         }
-        .choice-btn { 
-            padding: 1.2em 2.5em; margin: 0.8em; border: 3px solid #ff6b9d; border-radius: 50px; 
-            background: linear-gradient(45deg, #ff6b9d, #ff8e8e); color: white; font-size: 1.2em; 
-            cursor: pointer; transition: all 0.4s; font-weight: 600; font-family: inherit;
-            position: relative; overflow: hidden;
+        .cute-btn { 
+            padding: 1em 2em; margin: 0.6em; 
+            border: 2px solid transparent; border-radius: 25px; 
+            background: linear-gradient(45deg, #ffeef2, #fff5f8); 
+            color: #ff69b4; font-size: 1.15em; cursor: pointer; 
+            transition: all 0.4s ease; font-weight: 400; font-family: 'Poppins', sans-serif;
+            position: relative; overflow: hidden; min-width: 260px; 
+            box-shadow: 0 4px 15px rgba(255,105,180,0.3);
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
         }
-        .choice-btn::after {
-            content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; 
-            background: rgba(255,255,255,0.3); border-radius: 50%; transform: translate(-50%,-50%);
-            transition: all 0.6s;
+        .cute-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; 
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); 
+            transition: left 0.6s;
         }
-        .choice-btn:hover::after { width: 300px; height: 300px; }
-        .choice-btn:hover { transform: scale(1.15) translateY(-5px); box-shadow: 0 20px 40px rgba(255,107,157,0.5); }
-        .flower-burst { font-size: 6em; animation: bloomBurst 2s; display: none; }
+        .cute-btn:hover::before { left: 100%; }
+        .cute-btn:hover { 
+            background: linear-gradient(45deg, #ff69b4, #ff8cbf); 
+            color: white; transform: translateY(-4px) scale(1.02); 
+            box-shadow: 0 8px 25px rgba(255,105,180,0.5);
+            text-shadow: none;
+        }
+        .flower-burst { font-size: 6em; animation: bloomBurst 2s ease-out forwards; display: none; }
         @keyframes bloomBurst { 
             0% { transform: scale(0) rotate(0deg); opacity: 0; } 
             50% { transform: scale(1.3) rotate(180deg); } 
             100% { transform: scale(1) rotate(360deg); opacity: 1; } 
         }
         .typing { 
-            overflow: hidden; border-right: 4px solid #ff6b9d; white-space: nowrap; 
-            margin: 2em 0; font-size: 1.5em; animation: typing 3.5s steps(50, end), blink 0.75s infinite;
+            overflow: hidden; border-right: 4px solid #ff6b9d; 
+            white-space: nowrap; margin: 2em 0; font-size: 1.8em; 
+            animation: typing 4s steps(50, end), blink 0.75s infinite;
             font-family: 'Poppins', sans-serif; font-weight: 300;
         }
         @keyframes typing { from { width: 0; } to { width: 100%; } }
         @keyframes blink { from, to { border-color: transparent; } 50% { border-color: #ff6b9d; } }
         .success-glow { color: #ff6b9d !important; animation: successBounce 1.5s infinite; }
         @keyframes successBounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .no-btn { animation: playfulDodge 1s infinite alternate; }
-        @keyframes playfulDodge { 0% { transform: translateX(0) rotate(0deg); } 100% { transform: translateX(40px) rotate(5deg); } }
-        @media (max-width: 600px) { h1 { font-size: 2.5em; } p { font-size: 1.1em; } .choice-btn { padding: 1em 1.8em; } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @media (max-width: 600px) { 
+            h1 { font-size: 2.5em; } p { font-size: 1.1em; } 
+            .cute-btn { padding: 0.9em 1.8em; font-size: 1.05em; min-width: 220px; }
+            .compliment-card { padding: 1.5em 1.2em; font-size: 1.1em; min-width: 160px; }
+        }
     </style>
 </head>
 <body>
     <div class="sparkles" id="sparkles"></div>
     <div class="custom-cursor" id="cursor"></div>
 
-    <!-- Sec 1: The Spark -->
+    <!-- Section 1: The Spark -->
     <div class="section active" id="sec1">
         <h1>Hey you 🌸</h1>
         <p>I've been noticing you lately... and had to say something special.</p>
-        <p style="font-size: 1.1em; margin-bottom: 2em; opacity: 0.9;">Hover these cards to see what caught my eye ✨</p>
-        <div style="display: flex; flex-wrap: wrap; gap: 1.2em; justify-content: center; max-width: 900px;">
-            <div class="reveal-card" onmouseenter="revealText(this, 'Your smile 🌟')">?</div>
-            <div class="reveal-card" onmouseenter="revealText(this, 'That laugh 😊')">?</div>
-            <div class="reveal-card" onmouseenter="revealText(this, 'Your energy ✨')">?</div>
-            <div class="reveal-card" onmouseenter="revealText(this, 'The way you light up ☀️')">?</div>
+        <div class="compliments">
+            <div class="compliment-card">Your smile 🌟</div>
+            <div class="compliment-card">That laugh 😊</div>
+            <div class="compliment-card">Your energy ✨</div>
+            <div class="compliment-card">The way you light up ☀️</div>
         </div>
-        <button class="choice-btn" onclick="nextSection(2)" style="margin-top: 2.5em; font-size: 1.3em;">
+        <button class="cute-btn" onclick="nextSection(2)" style="margin-top: 2.5em; font-size: 1.2em;">
             Keep going → 💫
         </button>
     </div>
 
-    <!-- Sec 2: Building Connection -->
+    <!-- Section 2: Building Connection -->
     <div class="section" id="sec2">
         <h1>What's Next? 💭</h1>
         <p>From first glances to maybe... coffee chats? Late night talks?</p>
@@ -118,46 +140,40 @@
         <div style="margin: 2em 0;">
             <span style="font-size: 4em; animation: pulse 2s infinite;">☕❤️🎶</span>
         </div>
-        <button class="choice-btn" onclick="nextSection(3)" style="font-size: 1.4em; padding: 1.3em 3em;">
+        <button class="cute-btn" onclick="nextSection(3)" style="font-size: 1.3em; padding: 1.1em 2.5em;">
             Show me the question → ✨
         </button>
     </div>
 
-    <!-- Sec 3: The Ask -->
+    <!-- Section 3: The Ask - THREE SUPER CUTE SUBTLE YES OPTIONS -->
     <div class="section" id="sec3">
         <h1>So... ☕💕</h1>
-        <h2 style="font-size: 2em; margin: 0.5em 0 1.5em; opacity: 0.9;">Wanna grab coffee sometime? Just you + me.</h2>
-        <div style="display: flex; gap: 1.5em; flex-wrap: wrap; justify-content: center; margin-bottom: 2em;">
-            <button class="choice-btn" style="padding: 1.4em 3.5em; font-size: 1.4em;" onclick="finalChoice('yes')">
-                Yes! I'd love to 😘
+        <h2 style="margin-bottom: 2.5em;">Wanna grab coffee sometime? Just you + me.</h2>
+        <div style="display: flex; flex-direction: column; gap: 1em; justify-content: center; margin-bottom: 2em; max-width: 450px;">
+            <button class="cute-btn" style="padding: 1.1em 2.5em;" onclick="finalChoice()">
+                🥺 yes please!
             </button>
-            <button class="choice-btn" id="maybe-btn" onclick="finalChoice('maybe')" style="padding: 1.2em 2.5em;">
-                Sounds nice 🤩
+            <button class="cute-btn" style="padding: 1.1em 2.5em;" onclick="finalChoice()">
+                💕 i'd love to
             </button>
-            <button class="choice-btn" id="no-btn" onclick="finalChoice('no')" style="padding: 1.2em 2.5em;">
-                Not right now 😌
+            <button class="cute-btn" style="padding: 1.1em 2.5em;" onclick="finalChoice()">
+                ✨ yay coffee!
             </button>
         </div>
         <p style="opacity: 0.8; font-size: 1.1em;">No pressure—just thought you should know 💖</p>
     </div>
 
-    <!-- Final Response -->
+    <!-- Final Celebration -->
     <div class="section" id="final">
-        <div id="final-response" class="typing"></div>
+        <div id="final-response" class="typing">YASSS! 🎉 Thursday or Friday work? Can't wait to chat more ☕💖✨</div>
         <div id="flower-burst" class="flower-burst">🌸💐🌺✨</div>
         <p style="margin: 2em 0 1em; opacity: 0.85; font-style: italic;">Thanks for letting me share this 💫</p>
-        <button class="choice-btn" onclick="restart()" style="font-size: 1.2em;">← Back to start</button>
+        <button class="cute-btn" onclick="restart()" style="font-size: 1.1em; padding: 0.9em 2em;">← Try again? 🥰</button>
     </div>
 
     <script>
         let currentSec = 1;
-        const finalMsgs = {
-            yes: "Perfect! Thursday or Friday work? Can't wait to chat more ☕💖✨",
-            maybe: "Maybe's better than nothing! DM me when you're free? No rush 😊💕",
-            no: "Totally respect that 💙 Friends first works great. Still think you're amazing ✨"
-        };
 
-        // Sparkles
         function createSparkle() {
             const sparkle = document.createElement('div');
             sparkle.className = 'sparkle';
@@ -169,7 +185,6 @@
         }
         setInterval(createSparkle, 400);
 
-        // Custom cursor
         document.addEventListener('mousemove', e => {
             const cursor = document.getElementById('cursor');
             cursor.style.left = (e.clientX - 10) + 'px';
@@ -177,33 +192,23 @@
             cursor.style.transform = `scale(${e.buttons === 1 ? 1.5 : 1}) rotate(${e.movementX * 0.1}deg)`;
         });
 
-        function revealText(el, text) {
-            el.innerHTML = text;
-            el.style.background = 'linear-gradient(45deg, #ffecd2, #ffcccb)';
-        }
-
         function nextSection(sec) {
             document.getElementById(`sec${currentSec}`).classList.remove('active');
             currentSec = sec;
             document.getElementById(`sec${currentSec}`).classList.add('active');
         }
 
-        function finalChoice(choice) {
+        function finalChoice() {
             nextSection(4);
             const msgEl = document.getElementById('final-response');
-            msgEl.innerText = finalMsgs[choice];
-            msgEl.className = choice === 'yes' ? 'success-glow typing' : 'typing';
+            msgEl.className = 'success-glow typing';
             
-            if (choice === 'yes') {
-                confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
-                setTimeout(() => {
-                    confetti({ particleCount: 150, angle: 60, spread: 55, origin: { x: 0 } });
-                    confetti({ particleCount: 150, angle: 120, spread: 55, origin: { x: 1 } });
-                    document.getElementById('flower-burst').style.display = 'block';
-                }, 500);
-            } else if (choice === 'no') {
-                document.getElementById('no-btn').classList.add('no-btn');
-            }
+            confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
+            setTimeout(() => {
+                confetti({ particleCount: 150, angle: 60, spread: 55, origin: { x: 0 } });
+                confetti({ particleCount: 150, angle: 120, spread: 55, origin: { x: 1 } });
+                document.getElementById('flower-burst').style.display = 'block';
+            }, 500);
             
             setTimeout(() => {
                 document.querySelectorAll('#sec3 button').forEach(btn => {
